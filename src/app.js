@@ -13,7 +13,7 @@ app.listen(port,async  () => {
  await  connectDB();
 
 
-await create({content:"This is a #jbjkfg #moujskdnfnkfse"})
+
 
 
 

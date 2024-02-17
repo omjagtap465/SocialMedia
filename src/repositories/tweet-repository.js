@@ -26,5 +26,14 @@ const {Tweet} = require('../models')
             throw error
         }
     }
+    const updateById=async(tweetIdToUpdate,hashtagIdToAdd)=>{
+        const response=await Tweet.findOneAndUpdate(
+            { _id:tweetIdToUpdate  }, 
+            { $addToSet: { hashtags: hashtagIdToAdd } } 
+          
+        );
+        return response
 
-module.exports = {createTweet,get}
+    }
+
+module.exports = {createTweet,get,updateById}
