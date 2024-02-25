@@ -1,23 +1,32 @@
 
+
 const express = require('express')
 const app = express()
-const port =5500
 const {connectDB} = require('./configs/config');
-const{create} = require('./services/tweet-services');
-const { get } = require('./repositories/tweet-repository');
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+const bodyParser = require('body-parser');
+const {Tweet} = require('./models/index')
+
+const { PORT } = require('./configs/ServerConfig');
+const apiRoutes  = require('./routes/index');
+const { create } = require('./services/tweet-services');
+const { UserRepository,TweetRepository } = require('./repositories/index');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api', apiRoutes)
+app.listen(PORT,async (req, res) => {
+  await  connectDB();
+ 
+//   const response = await Tweet.findById({
+//     _id:
+// })
+// const tweet =new TweetRepository()
+// const id = '65d8ce6a1ffbc53bfefd2ede'
+//   const response =await tweet.getById(id)
+//   console.log(response);
+  // create()
+//  const user = new  UserRepository()
+// await  user.create({email:"omjagtap465",password:"12345",username:"omjagtap"})
+    console.log(`Sucessfully started the server on ${PORT}`);
 })
 
-app.listen(port,async  () => {
- await  connectDB();
 
-
-
-
-
-
-// hashtags.shift()
-// console.log(hashtags);
-  console.log(`Example app listening on port ${port}`)
-})

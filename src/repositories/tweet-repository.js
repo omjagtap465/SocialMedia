@@ -1,19 +1,19 @@
 const {Tweet} = require('../models')
+const CrudRepository = require('./crud-repository')
+class TweetRepository  {
+     
 
-    const createTweet = async(data) =>{
+    
+    async createTweet(data) {
         try {
-            console.log(data)
+            console.log("inside Repo",data)
             const response = await Tweet.create(data)
             return response
         } catch (error) {
             throw error
         }
     }
-    // [
-    //     { "content": { $regex: "content"} },
-    //     { "content": { $regex: "condgrtent" } }
-    // ]
-    const get = async(data) =>{
+    async   get(data) {
         try {
             console.log(data)
             const response = await Tweet.find({
@@ -22,18 +22,35 @@ const {Tweet} = require('../models')
             
             return response
         } catch (error) {
-
+    
             throw error
         }
     }
-    const updateById=async(tweetIdToUpdate,hashtagIdToAdd)=>{
-        const response=await Tweet.findOneAndUpdate(
-            { _id:tweetIdToUpdate  }, 
-            { $addToSet: { hashtags: hashtagIdToAdd } } 
-          
-        );
-        return response
-
+    async getById(tweetId){
+        try {
+            console.log(tweetId)
+            const response = await Tweet.findById({
+                _id:tweetId
+            })
+            return response
+        } catch (error) {
+            throw error 
+        }
+    }
+    async updateById(tweetIdToUpdate,hashtagIdToAdd){
+        try {
+            const response=await Tweet.findOneAndUpdate(
+                { _id:tweetIdToUpdate  }, 
+                { $addToSet: { hashtags: hashtagIdToAdd } } 
+                
+                );
+                return response
+        } catch (error) {
+            throw error 
+        }
+  
+            
+        }
     }
 
-module.exports = {createTweet,get,updateById}
+module.exports = TweetRepository

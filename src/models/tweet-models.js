@@ -1,21 +1,32 @@
 const mongoose = require('mongoose');
-const {Schema}  = mongoose
-const {Hashtag}  =require('./hastag-model')
+const { Schema } = mongoose
+const { Hashtag } = require('./hastag-model');
+const { Like, Comment } = require('./index');
 const TweetSchema = new Schema({
-    content:{
-        type:String,
-        required:true,
+    content: {
+        type: String,
+        required: true,
     },
-   hashtags:[
-    {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:Hashtag
-    }
-   ]
-    
-},{
-    versionKey:false
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Like
+    }],
+    hashtags: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: Hashtag
+        }
+    ],
+    comment: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: Comment
+        }
+    ]
+
+}, {
+    versionKey: false
 })
 const Tweet = mongoose.model('Tweet', TweetSchema);
-module.exports = 
+module.exports =
     Tweet
